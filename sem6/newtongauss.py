@@ -17,7 +17,11 @@ def f11(x):
 
 
 def f22(x):
-    return ((x - abig) ** (-alpha)) * ((bbig - x) ** (-betta))
+    if x-abig == 0:
+        y = 1
+    else:
+        y = ((x - abig) ** (-alpha)) * ((bbig - x) ** (-betta))
+    return y
 
 
 def f(x):
@@ -63,10 +67,29 @@ def gauss(n, a, b):
     return sum
 
 
+def newton(n, a, b):
+    x = [0 for i in range(n)]
+    delta = (b - a) / (n - 1)
+    for i in range(0, n):
+        x[i] = a + i * delta
+    moments = [0 for i in range(0, n)]
+    for i in range(0, n):
+        moments[i] = (2.2 ** (0.8 + i)) / (i + 0.8)
+    matrix = [[0 for i in range(n)] for j in range(n)]
+    for i in range(0, n):
+        for j in range(0, n):
+            matrix[i][j] = (x[j] ** i)
+    solution = numpy.linalg.solve(matrix, moments)
+    s = 0
+    for i in range(0, n):
+        s += solution[i] * f(float(x[i]))
+    return s
+
+
 exv = integrate.quad(f1, abig, bbig)[0]
 summ = 0.0
-summ += gauss(int(3), 0, 1.5)
+summ += gauss(int(5), 0, 1.5)
 summ += gauss(int(6), 1.5, 2.0)
-summ += gauss(int(6), 2.0, 2.2)
+summ += gauss(int(7), 2.0, 2.2)
 print(abs(exv - summ))
 
