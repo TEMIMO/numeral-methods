@@ -74,7 +74,7 @@ def newton(n, a, b):
         x[i] = a + i * delta
     moments = [0 for i in range(0, n)]
     for i in range(0, n):
-        moments[i] = (2.2 ** (0.8 + i)) / (i + 0.8)
+        moments[i] = (((b ** (0.8 + i)) / (i + 0.8)) - ((a ** (0.8 + i)) / (i + 0.8)))
     matrix = [[0 for i in range(n)] for j in range(n)]
     for i in range(0, n):
         for j in range(0, n):
@@ -85,11 +85,14 @@ def newton(n, a, b):
         s += solution[i] * f(float(x[i]))
     return s
 
-
+k = int(input())
+delta = bbig/k
 exv = integrate.quad(f1, abig, bbig)[0]
-summ = 0.0
-summ += gauss(int(5), 0, 1.5)
-summ += gauss(int(6), 1.5, 2.0)
-summ += gauss(int(7), 2.0, 2.2)
-print(abs(exv - summ))
+sumg = 0.0
+sumn = 0.0
+for i in range(k):
+    sumg += gauss(2, abig+i*delta, abig+(i+1)*delta)
+    sumn += newton(3, abig + i * delta, abig + (i + 1) * delta)
+print('Разница метода Гаусса: ', abs(exv - sumg))
+print('Разница метода Ньютона: ', abs(exv - sumn))
 
