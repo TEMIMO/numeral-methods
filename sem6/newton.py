@@ -51,7 +51,7 @@ for l in range(3, 25):
 
     moments = [0 for i in range(0, n)]
     for i in range(0, n):
-        moments[i] = (2.2 ** (0.8 + i)) / (i + 0.8)
+        moments[i] = (delta ** (0.8 + i)) / (i + 0.8)
     matrix = [[0 for i in range(n)] for j in range(n)]
     matrixcheb = [[0 for i in range(n)] for j in range(n)]
     for i in range(0, n):
